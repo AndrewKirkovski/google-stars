@@ -83,13 +83,13 @@ app.onSync((body) => {
           'action.devices.traits.OnOff',
         ],
         name: {
-          defaultNames: ['My Light'],
-          name: 'Light',
-          nicknames: ['Light'],
+          defaultNames: ['Stars'],
+          name: 'Starts',
+          nicknames: ['Starts', 'Lasers', 'Trippy Lights'],
         },
         deviceInfo: {
-          manufacturer: 'Acme Co',
-          model: 'acme-light',
+          manufacturer: 'Ryo Incorporated',
+          model: 'lost-planetarium',
           hwVersion: '1.0',
           swVersion: '1.0.1',
         },
@@ -98,9 +98,9 @@ app.onSync((body) => {
           //pausable: true,
         },
         // Add otherDeviceIds for local execution
-		otherDeviceIds: [{
-			deviceId: 'deviceid123',
-		}]
+        otherDeviceIds: [{
+          deviceId: 'stars1212',
+        }]
       }],
     },
   };
@@ -131,10 +131,10 @@ app.onQuery(async (body) => {
     const deviceId = device.id;
     queryPromises.push(queryDevice(deviceId)
       .then((data) => {
-        // Add response to device payload
-        payload.devices[deviceId] = data;
-      }
-    ));
+          // Add response to device payload
+          payload.devices[deviceId] = data;
+        }
+      ));
   }
   // Wait for all promises to resolve
   await Promise.all(queryPromises)
@@ -144,8 +144,8 @@ app.onQuery(async (body) => {
   };
 });
 
-const updateDevice = async (execution,deviceId) => {
-  const {params,command} = execution;
+const updateDevice = async (execution, deviceId) => {
+  const {params, command} = execution;
   let state, ref;
   switch (command) {
     case 'action.devices.commands.OnOff':
@@ -175,7 +175,7 @@ app.onExecute(async (body) => {
     for (const device of command.devices) {
       for (const execution of command.execution) {
         executePromises.push(
-          updateDevice(execution,device.id)
+          updateDevice(execution, device.id)
             .then((data) => {
               result.ids.push(device.id);
               Object.assign(result.states, data);

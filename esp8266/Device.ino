@@ -16,7 +16,7 @@ WiFiUDP Udp;
 unsigned int localPort = 3311;
 // buffers for receiving and sending data
 char packetBuffer[UDP_TX_PACKET_MAX_SIZE + 1]; //buffer to hold incoming packet,
-char ReplyBuffer[] = "deviceid123";       // a string to send back
+char ReplyBuffer[] = "stars1212";       // a string to send back
 
 #define LED_BUILTIN 2
 
@@ -80,7 +80,7 @@ void handleRoot() {
   WiFiClient client;
   HTTPClient http;
   Serial.println("HTTP Client Started...\n");
-  http.begin("https://<PROJECT_ID>.firebaseapp.com/updatestate", "46 F2 E8 99 89 6D 93 C2 44 E0 44 22 D0 86 9B F2 56 A7 7C 95"); //HTTP
+  http.begin("https://starsincloud-ab299.firebaseio.com/updatestate", "46 F2 E8 99 89 6D 93 C2 44 E0 44 22 D0 86 9B F2 56 A7 7C 95"); //HTTP
   http.addHeader("Content-Type", "application/json");
   int httpCode = http.POST(server.arg("plain"));
   Serial.printf("[HTTP] POST... code: %s\n", http.errorToString(httpCode).c_str());
